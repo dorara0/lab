@@ -1,54 +1,29 @@
 clc;
 clear all;
-
-c = [6 4 1 5;
-     8 9 2 7;
-     4 3 6 4];
-
+c = [6 4 1 5; 8 9 2 7; 4 3 6 4];
 s = [14 16 5];
 d = [6 10 15 4];
-
 [m,n] = size(c);
-
 if sum(s) == sum(d)
-    
     disp('Balanced Transportation Problem');
-    
     x = zeros(m,n);
     cost = c;   % copy for calculation
-    
-    while any(s>0) && any(d>0)
-        
-        % Find minimum cost
+    while any(s>0) && any(d>0) 
         [minval, idx] = min(cost(:));
         [p,q] = ind2sub(size(cost), idx);
-        
-        % Allocation
         alloc = min(s(p), d(q));
         x(p,q) = alloc;
-        
-        % Update supply & demand
         s(p) = s(p) - alloc;
         d(q) = d(q) - alloc;
-        
-        % Block row/column
         if s(p) == 0
-            cost(p,:) = inf;
-        end
-        
+            cost(p,:) = inf;end
         if d(q) == 0
-            cost(:,q) = inf;
-        end
-        
+            cost(:,q) = inf;end
     end
-    
     total_cost = sum(sum(x .* c));
-    
     disp('Allocation Matrix:')
     disp(x)
-    
     fprintf('Minimum Transportation Cost = %f\n', total_cost);
-
 else
     disp('Unbalanced Transportation Problem');
 end
