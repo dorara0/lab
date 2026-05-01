@@ -1,34 +1,22 @@
 clc;
 clear all;
 format short
-
 f = @(x1,x2) x1.^2 + 2*x2.^2;
-
 grad_f = @(x1,x2) [2*x1; 4*x2];
-
 x = [3;3];
-
 max_iter = 100;
 tol = 1e-6;
 alpha = 0.1;
-
 fprintf('Initial Point: (%f, %f)\n', x(1), x(2));
-
 for iter = 1:max_iter
-    
-    gradient = grad_f(x(1), x(2));
-    
+    gradient = grad_f(x(1), x(2));    
     if norm(gradient) < tol
         break;
-    end
-    
-    x = x - alpha * gradient;
-    
+    end   
+    x = x - alpha * gradient;   
 end
-
 fprintf('\nOptimal Solution Found:\n');
 fprintf('x1 = %f\n', x(1));
 fprintf('x2 = %f\n', x(2));
-
 fprintf('\nMinimum Function Value = %f\n', f(x(1),x(2)));
 fprintf('Total Iterations = %d\n', iter);
