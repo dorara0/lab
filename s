@@ -5,8 +5,6 @@ C = [1 2 3 0 0]; A = [1 2 0 1 0; 3 0 4 0 1]; b = [20; 30];
 for s = 1:50
   ZjCj = C(bv)*Y(:,1:n)-C;
   Z = C(bv)*Y(:,end);
- 
-  % Display Table
   fprintf('\nIteration %d\n', s);
   disp(array2table([ZjCj Z; Y], 'VariableNames',{'x1','x2','x3','s1','s2','Sol'}))
   if all(ZjCj >= 0), break; end
@@ -16,7 +14,6 @@ for s = 1:50
   ratios(Y(:,EV)<=0) = inf;
   [~, LV] = min(ratios);
   bv(LV) = EV;
-  % Pivot
   Y(LV,:) = Y(LV,:)/Y(LV,EV);
   for i = 1:m
       if i~=LV, Y(i,:) = Y(i,:) - Y(i,EV)*Y(LV,:); end
